@@ -7,9 +7,11 @@ import {Pane, Heading, Paragraph, Button, majorScale} from 'evergreen-ui';
 import Container from "../../components/container";
 import Link from 'next/link';
 import {getPosts} from "../../shared/getPosts";
+import HeadComponent from "../../components/head";
 
 export default function Blog({posts}: { posts: Post[] }) {
     return <Pane>
+        <HeadComponent title={'List of posts'} desc={'list of blog posts'}/>
         <main>
             <Container>
                 <Pane display="flex" justifyContent="space-between" alignItems="center">
@@ -38,6 +40,7 @@ export default function Blog({posts}: { posts: Post[] }) {
 
 export async function getServerSideProps() {
     const posts = getPosts();
+    console.log(posts);
     return {
         props: {
             posts

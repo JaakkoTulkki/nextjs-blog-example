@@ -2,16 +2,15 @@ import DefaultErrorPage from 'next/error'
 import {getPosts} from "../../shared/getPosts";
 import { useRouter } from 'next/router'
 import {Pane} from "evergreen-ui";
-import Head from "next/head";
 import Container from "../../components/container";
 import matter from "gray-matter";
 import {serialize} from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import {BigHeading} from "../../components/heading";
+import HeadComponent from "../../components/head";
 
 
 export default function BlogPost({source, post}) {
-    console.log(post);
     const router = useRouter()
     if(router.isFallback) {
         return <div>Loading</div>;
@@ -20,10 +19,7 @@ export default function BlogPost({source, post}) {
         return <DefaultErrorPage statusCode={404}/>
     }
     return <Pane>
-        <Head>
-            <title>{`Open Blog | ${post.data.title}`}</title>
-            <meta name="description" content={post.data.summary} />
-        </Head>
+        <HeadComponent title={post.data.title} desc={post.data.summary}/>
         <main>
             <Container>
                 <BigHeading>{post.data.title}</BigHeading>
@@ -42,7 +38,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}) {
-    // console.log(params);
+    console.log(params);
     const posts = getPosts();
     const post = posts.find(post => post.data.slug === params.slug);
     if(typeof post === 'undefined') {
