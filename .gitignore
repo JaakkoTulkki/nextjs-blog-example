@@ -32,3 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+!posts/first-post.mdx
+!posts/second-post.mdx
+posts
