@@ -4,6 +4,7 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import slugify from "slugify";
 import { useRouter } from 'next/router'
+import {type} from "os";
 
 function createMd(data) {
     const date = new Date(data.time).toISOString().slice(0, 10);
@@ -73,7 +74,7 @@ const Editor = () => {
             },
         });
         return () => {
-            if(editorJs.current) {
+            if(editorJs.current && typeof editorJs.current === 'function') {
                 editorJs.current.destroy();
             }
         }
